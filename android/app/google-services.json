@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "812692147695",
+    "project_id": "sex-shop-aeb32",
+    "storage_bucket": "sex-shop-aeb32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812692147695:android:ff4ff8741358c35cbdba1a",
+        "android_client_info": {
+          "package_name": "com.danielluis.ecommerce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812692147695-gm5d2gn3hn0c39tl947kohf00a4f44m9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC526dFkxoXNjWnINotlsfzBugqxUJRaZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812692147695-gm5d2gn3hn0c39tl947kohf00a4f44m9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
