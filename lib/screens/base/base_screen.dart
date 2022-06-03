@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/common/custom_drawer/costum_drawer.dart';
+import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce_app/models/page_manager.dart';
@@ -18,6 +19,7 @@ class BaseScreen extends StatelessWidget {
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
+          LoginScreen(),
           Scaffold(
             drawer: const CostumDrawer(),
             appBar: AppBar(
@@ -30,7 +32,7 @@ class BaseScreen extends StatelessWidget {
             child: ElevatedButton(
               child: const Text('Page 1'),
               onPressed: () {
-                pageController.jumpToPage(1);
+                pageController.jumpToPage(0);
               },
             ),
           ),
