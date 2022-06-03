@@ -14,10 +14,10 @@ class UserManager extends ChangeNotifier {
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
-          print(result);
+      print(result);
       onSuccess();
-    } on PlatformException catch (e) {
-      onFail(getErrorString(e.code));
+    } on FirebaseException catch (e) {
+      onFail(getErrorString(e.toString()));
     }
   }
 
