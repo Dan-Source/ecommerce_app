@@ -23,12 +23,12 @@ class LoginScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           TextButton(
-            child: const Text('Entrar'),
+            child: const Text('Criar Conta'),
             style: TextButton.styleFrom(
               primary: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/home');
+              Navigator.of(context).pushNamed('/signup');
             },
           ),
         ],
@@ -107,7 +107,7 @@ class LoginScreen extends StatelessWidget {
                             onFail: (e) {
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text('Falha ao entrar: $e'),
-                                backgroundColor: Color.fromARGB(255, 250, 110, 100),
+                                backgroundColor: const Color.fromARGB(255, 250, 110, 100),
                               ));
                             },
                             onSuccess: () {

@@ -1,8 +1,8 @@
 
 String getErrorString(String code) {
-  const String user_not_found = "[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.";
+  const String userNotFound = "[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.";
   switch (code) {
-    case "ERROR_WRONG_PASSWORD":
+    case "ERROR_WRONG_SHORT_PASSWORD":
       return 'Sua senha é muito fraca.';
     case 'ERROR_INVALID_EMAIL':
       return 'Seu e-mail é inválido.';
@@ -12,7 +12,7 @@ String getErrorString(String code) {
       return 'Seu e-mail é inválido.';
     case 'ERROR_WRONG_PASSWORD':
       return 'Sua senha está incorreta.';
-    case user_not_found:
+    case userNotFound:
       return 'Não há usuário com este e-mail.';
     case 'ERROR_USER_DISABLED':
       return 'Este usuário foi desabilitado.';
