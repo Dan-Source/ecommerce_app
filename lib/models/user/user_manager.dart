@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ecommerce_app/models/user/user.dart' as costum;
 import 'package:ecommerce_app/helpers/firebase_erros.dart';
@@ -11,6 +13,7 @@ class UserManager extends ChangeNotifier {
   }
 
   FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   bool _loading = false;
 
@@ -24,8 +27,9 @@ class UserManager extends ChangeNotifier {
     loading = true;
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
-          email: user.email!, password: user.password!);
-        await _loadCurrentUser(user: result,);
+          email: user.email!, password: user.password!
+      );
+      await _loadCurrentUser(user: result);
       onSuccess();
     } on FirebaseException catch (e) {
       onFail(getErrorString(e.toString()));
@@ -51,8 +55,15 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> _loadCurrentUser({UserCredential? user}) async {
-    this.user = user as costum.User;
-    notifyListeners();
+    if(auth.currentUser == null) {
+      final DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.user!.uid)
+          .get();
+      this.user = costum.User.fromDocument(doc);
+    }
+
+  notifyListeners();
   }
 
   void setLoading(bool value) {

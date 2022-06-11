@@ -1,7 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class User {
   User({
     this.email,
@@ -18,6 +17,12 @@ class User {
   @override
   String toString() {
     return 'User{email: $email}';
+  }
+
+  User.fromDocument(DocumentSnapshot document) {
+    id = document.id;
+    email = document.get('email') as String;
+    name = document.get('name') as String;
   }
 
   DocumentReference get firestoreRef =>
