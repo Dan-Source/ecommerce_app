@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/base/base_screen.dart';
+import 'package:ecommerce_app/screens/singup/sing_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,20 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: const BaseScreen(),
+        initialRoute: '/base',
+        onGenerateRoute: (settings) {
+          switch(settings.name) {
+            case '/signup':
+              return MaterialPageRoute(
+                builder: (_) => const SignUpScreen()
+              );
+            case '/':
+            default:
+              return MaterialPageRoute(
+                builder: (_) => const BaseScreen()
+              );
+          }
+        },
       ),
     );
   }

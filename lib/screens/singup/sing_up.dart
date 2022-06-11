@@ -1,10 +1,14 @@
-import 'package:lojavirtual/models/user/user.dart';
+import 'package:ecommerce_app/models/user/user.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/helpers/validators.dart';
 
+import '../../models/user/user.dart';
+
 class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -20,6 +24,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   FocusNode passFocus = FocusNode();
 
   FocusNode confirmPassFocus = FocusNode();
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  TextEditingController confirmPassController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   final User user = User();
 
@@ -48,14 +57,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           const InputDecoration(hintText: 'Nome Completo'),
                       autocorrect: false,
                       validator: (name) {
-                        if (name.isEmpty) {
+                        if (name!.isEmpty) {
                           return 'Campo obrigatório.';
                         } else if (name.trim().split(' ').length <= 1) {
                           return 'Preencha seu Nome Completo.';
                         }
                         return null;
                       },
-                      onSaved: (name) => user.name = name,
+                      controller: nameController,
                       onEditingComplete: () {
                         emailFocus.nextFocus();
                       },
@@ -70,11 +79,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       autocorrect: false,
                       focusNode: emailFocus,
                       validator: (email) {
-                        if (email.isEmpty) return 'Campo obrigatório.';
+                        if (email!.isEmpty) return 'Campo obrigatório.';
                         if (!emailValid(email)) return 'E-mail inválido.';
                         return null;
                       },
-                      onSaved: (email) => user.email = email,
+                      controller: emailController,
                       onEditingComplete: () {
                         passFocus.nextFocus();
                       },
@@ -89,11 +98,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       focusNode: passFocus,
                       obscureText: true,
                       validator: (pass) {
-                        if (pass.isEmpty) return 'Informe a senha.';
+                        if (pass!.isEmpty) return 'Informe a senha.';
                         if (pass.length < 6) return 'Senha muito curta.';
                         return null;
                       },
-                      onSaved: (pass) => user.password = pass,
+                      controller: passController,
                       onEditingComplete: () {
                         confirmPassFocus.nextFocus();
                       },
@@ -109,51 +118,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       obscureText: true,
                       focusNode: confirmPassFocus,
                       validator: (pass) {
-                        if (pass.isEmpty) return 'Informe a senha.';
+                        if (pass!.isEmpty) return 'Informe a senha.';
                         if (pass.length < 6) return 'Senha muito curta.';
                         return null;
                       },
-                      onSaved: (pass) => user.confirmPassword = pass,
+                      controller: confirmPassController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    RaisedButton(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ElevatedButton(
                       onPressed: userManager.loading
                           ? null
                           : () {
-                              if (formKey.currentState.validate()) {
-                                formKey.currentState.save();
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
 
-                                if (user.password != user.confirmPassword) {
-                                  scaffoldKey.currentState
-                                      .showSnackBar(const SnackBar(
-                                    content: Text('Senhas não coincidem!'),
-                                    backgroundColor: Colors.red,
-                                  ));
+                                if (passController.text != confirmPassController.text) {
+                                  ScaffoldMessenger
+                                    .of(context)
+                                    .showSnackBar(
+                                      const SnackBar(
+                                        content: Text('As senhas não conferem.'),
+                                        backgroundColor: Color.fromARGB(255, 250, 110, 100),
+                                      ));
                                   return;
                                 }
-
+                                final User user = User(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  password: passController.text,
+                                );
                                 userManager.signUp(
                                     user: user,
                                     onFail: (e) {
-                                      scaffoldKey.currentState
-                                          .showSnackBar(SnackBar(
-                                        content: Text('Falha ao cadastrar: $e'),
-                                        backgroundColor: Colors.red,
-                                      ));
+                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text('Falha ao cadastrar: $e'),
+                                      backgroundColor: const Color.fromARGB(255, 250, 110, 100),
+                                    ));
                                     },
                                     onSuccess: () {
                                       Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
-                                    });
+                                      // Navigator.of(context).pop();
+                                  });
                               }
                             },
-                      color: Theme.of(context).primaryColor,
-                      disabledColor:
-                          Theme.of(context).primaryColor.withAlpha(100),
-                      textColor: Colors.white,
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).primaryColor,
+                      ),
                       child: userManager.loading
                           ? const CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation(Colors.white),
