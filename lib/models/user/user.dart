@@ -1,7 +1,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class User {
+
   User({
     this.email,
     this.password,
@@ -12,7 +14,7 @@ class User {
   String? password;
   String? name;
   String? confirmPassword;
-
+  bool admin = false;
 
   @override
   String toString() {
@@ -29,7 +31,7 @@ class User {
       FirebaseFirestore.instance.collection("users").doc(id);
 
   Future<void> saveData() async {
-      await FirebaseFirestore.instance.collection("users").add(toMap());
+      await firestoreRef.set(toMap());
   }
 
   Map<String, dynamic> toMap() {
@@ -38,4 +40,5 @@ class User {
       'name': name,
     };
   }
+
 }

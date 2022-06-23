@@ -6,11 +6,11 @@ class PageManager {
 
   PageManager(this._pageController);
 
-  void setPage(int page) {
-    if(page == page) {
+  void setPage(int value) {
+    if(page == value) {
       return;
     }
-    page = page;
-    _pageController.jumpToPage(page);
+    page = value;
+    _pageController.jumpToPage(value);
   }
 }

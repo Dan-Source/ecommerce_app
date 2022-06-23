@@ -16,6 +16,7 @@ class UserManager extends ChangeNotifier {
   FirebaseStorage storage = FirebaseStorage.instance;
 
   bool _loading = false;
+  bool get isLoggedIn => user != null;
 
   bool get loading => _loading;
   set loading(bool value) {
@@ -24,7 +25,7 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> signIn({required costum.User user, required Function onFail, required Function onSuccess }) async {
-    loading = true;
+    // loading = true;
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
           email: user.email!, password: user.password!
@@ -34,7 +35,7 @@ class UserManager extends ChangeNotifier {
     } on FirebaseException catch (e) {
       onFail(getErrorString(e.toString()));
     }
-    loading = false;
+    //loading = false;
   }
 
   Future<void> signUp({required costum.User user, required Function onFail, required Function onSuccess }) async {
@@ -44,7 +45,6 @@ class UserManager extends ChangeNotifier {
           email: user.email!, password: user.password!
       );
       user.id = result.user!.uid;
-      print(user.toMap());
       await user.saveData();
       onSuccess();
     } on FirebaseException catch (e) {
@@ -54,21 +54,29 @@ class UserManager extends ChangeNotifier {
     loading = false;
   }
 
-  Future<void> _loadCurrentUser({UserCredential? user}) async {
-    if(auth.currentUser == null) {
-      final DocumentSnapshot doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.user!.uid)
-          .get();
-      this.user = costum.User.fromDocument(doc);
-    }
+  void signOut() {
+    auth.signOut();
+    user = null;
+    notifyListeners();
+  }
 
-  notifyListeners();
+  Future<void> _loadCurrentUser({UserCredential? user}) async {
+    final uid = user?.user?.uid;
+    if (uid != null) {
+      final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get();
+        this.user = costum.User.fromDocument(doc);
+    }
+    notifyListeners();
   }
 
   void setLoading(bool value) {
     loading = value;
     notifyListeners();
   }
+
+  bool get adminEnabled => user != null && user!.admin;
 
 }

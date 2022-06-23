@@ -38,6 +38,8 @@ dependencies:
   firebase_core: ^1.17.0
   firebase_storage: ^10.2.16
   provider: ^6.0.2
+  uuid: 3.0.6
+  carousel_pro: ^1.0.0
 
 dev_dependencies:
   lint: ^1.0.0

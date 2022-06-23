@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
           child: Form(
             key: _formKey,
             child: Consumer<UserManager>(
-              builder: (_, UserManager userManager, __) {
+              builder: (_,userManager, child) {
 
                 return ListView(
                   shrinkWrap: true,
@@ -115,12 +115,11 @@ class LoginScreen extends StatelessWidget {
                             });
                         }
                       },
-                      child: userManager.loading
-                        ? const CircularProgressIndicator(
+                      child: userManager.loading ? const CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(Colors.white),
                         ) : const Text('Entrar'),
                     ),
-                  ]
+                  ],
                 );
               },
             )
