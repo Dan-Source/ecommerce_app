@@ -1,6 +1,11 @@
+import 'package:ecommerce_app/models/product/product.dart';
+import 'package:ecommerce_app/models/product/product_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/base/base_screen.dart';
+import 'package:ecommerce_app/screens/login/login_screen.dart';
+import 'package:ecommerce_app/screens/product/product_screen.dart';
 import 'package:ecommerce_app/screens/singup/sing_up.dart';
+import 'package:ecommerce_app/screens/products/products_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +25,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => UserManager(),
+          lazy: false,
         ),
+        ChangeNotifierProvider(
+          create: (_) => ProductManager(),
+          lazy: false,
+        )
       ],
       child: MaterialApp(
         title: 'Prazeres de Vênus',
@@ -34,17 +44,25 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/base',
+        initialRoute: '/',
         onGenerateRoute: (settings) {
           switch(settings.name) {
             case '/signup':
               return MaterialPageRoute(
-                builder: (_) => const SignUpScreen()
+                builder: (_) => const SignUpScreen(),
+              );
+            case '/login':
+              return MaterialPageRoute(
+                builder: (_) => LoginScreen()
+              );
+            case '/product':
+              return MaterialPageRoute(
+                builder: (_) => ProductScreen(settings.arguments as Product),
               );
             case '/':
             default:
               return MaterialPageRoute(
-                builder: (_) => const BaseScreen()
+                builder: (_) => BaseScreen(),
               );
           }
         },
