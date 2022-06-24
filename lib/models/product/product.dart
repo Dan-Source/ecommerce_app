@@ -36,10 +36,10 @@ class Product extends ChangeNotifier {
     name = document.get('name') as String;
     description = document.get('description') as String;
     images = List<String>.from(document.get('images') as List<dynamic>);
-    // sizes = (document.get('sizes') as List<dynamic>)
-    //     .map((s) => ItemSize.fromMap(s as Map<String, dynamic>))
-    //     .toList();
-    deleted = (document.get('deleted') ?? false) as bool;
+    sizes = List<dynamic>.from(document.get('sizes') as List<dynamic>)
+        .map((s) => ItemSize.fromMap(s as Map<String, dynamic>))
+        .toList();
+    // deleted = (document.get('deleted') ?? false) as bool;
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -56,16 +56,16 @@ class Product extends ChangeNotifier {
   bool get loading => _loading;
   set loading(bool value) {
     _loading = value;
-    //notifyListeners();
+    notifyListeners();
   }
 
   num get basePrice {
     num lowest = double.infinity;
-    // for (final size in sizes!) {
-    //   if (size.price! < lowest) {
-    //     lowest = size.price!;
-    //   }
-    // }
+    for (final size in sizes!) {
+      if (size.price! < lowest) {
+        lowest = size.price!;
+      }
+    }
     return lowest.isNaN ? 0 : lowest;
   }
 
@@ -78,14 +78,15 @@ class Product extends ChangeNotifier {
 
   int get totalStock {
     int stock = 0;
-    // for (final size in sizes!) {
-    //   stock += size.stock!;
-    // }
+    for (final size in sizes!) {
+      stock += size.stock!;
+    }
     return stock;
   }
 
   bool get hasStock {
-    return totalStock > 0 && !deleted!;
+    // return totalStock > 0 && deleted!;
+    return totalStock > 0;
   }
 
   ItemSize? findSize(String name) {
@@ -157,7 +158,7 @@ class Product extends ChangeNotifier {
         name: name,
         description: description,
         images: List.from(images!),
-        // sizes: sizes!.map((size) => size.clone()).toList(),
+        sizes: sizes!.map((size) => size.clone()).toList(),
         // deleted: deleted
       );
   }

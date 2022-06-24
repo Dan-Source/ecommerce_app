@@ -112,13 +112,13 @@ class ProductScreen extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
-                    // Wrap(
-                    //   spacing: 8,
-                    //   runSpacing: 8,
-                    //   children: product.sizes!.map((s) {
-                    //     return SizeWidget(s);
-                    //   }).toList(),
-                    // ),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: product.sizes!.map((s) {
+                        return SizeWidget(s);
+                      }).toList(),
+                    ),
                   ],
                   const SizedBox(
                     height: 20,

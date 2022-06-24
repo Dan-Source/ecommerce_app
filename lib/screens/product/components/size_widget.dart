@@ -27,6 +27,9 @@ class SizeWidget extends StatelessWidget {
         if (size.hasStock) {
           product.selectedSize = size;
         }
+        if (selected) {
+          product.selectedSize = ItemSize();
+        }
       },
       child: Container(
         decoration: BoxDecoration(border: Border.all(color: color)),
