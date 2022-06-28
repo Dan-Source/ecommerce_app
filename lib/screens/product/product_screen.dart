@@ -1,9 +1,9 @@
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter/material.dart';
-// import 'package:lojavirtual/models/cart/cart_manager.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce_app/models/cart/cart_manager.dart';
 import 'package:ecommerce_app/models/product/product.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/product/components/size_widget.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -45,15 +45,23 @@ class ProductScreen extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1,
-              child: Carousel(
-                images: product.images!.map((url) {
-                  return NetworkImage(url);
-                }).toList(),
-                dotSize: 5,
-                dotSpacing: 15,
-                dotColor: primaryColor,
-                dotBgColor: Colors.transparent,
-                autoplay: false,
+              child: CarouselSlider(
+                items: product.images!.map((url) => Container(
+                  child: Center(
+                      child:
+                          Image.network(url, fit: BoxFit.cover, width: 1000)),
+                      ))
+                  .toList(),
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      aspectRatio: 2.0,
+                      enlargeCenterPage: true,
+                    ),
+                // dotSize: 5,
+                // dotSpacing: 15,
+                // dotColor: primaryColor,
+                // dotBgColor: Colors.transparent,
+                // autoplay: false,
               ),
             ),
             Padding(
@@ -123,7 +131,7 @@ class ProductScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  if (product.hasStock)
+                  if (product.hasStock == true)
                     Consumer2<UserManager, Product>(
                       builder: (_, userManager, productManager, __) {
                         return SizedBox(
@@ -135,10 +143,10 @@ class ProductScreen extends StatelessWidget {
                             onPressed: product.selectedSize != null
                                 ? () {
                                     if (userManager.isLoggedIn) {
-                                      // context
-                                      //     .read<CartManager>()
-                                      //     .addToCart(product);
-                                      // Navigator.of(context).pushNamed('/cart');
+                                      context
+                                          .read<CartManager>()
+                                          .addToCart(product);
+                                      Navigator.of(context).pushNamed('/cart');
                                     } else {
                                       Navigator.of(context).pushNamed('/login');
                                     }

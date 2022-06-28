@@ -61,8 +61,15 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> _loadCurrentUser({UserCredential? user}) async {
-    final uid = user?.user?.uid;
-    if (uid != null) {
+    User? result;
+
+    if (user == null) {
+      result = auth.currentUser;
+    } else {
+      result = user.user;
+    }
+    final uid = result!.uid;
+    if (result != null) {
       final DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)

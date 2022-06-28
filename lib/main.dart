@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/models/cart/cart_manager.dart';
 import 'package:ecommerce_app/models/product/product.dart';
 import 'package:ecommerce_app/models/product/product_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/base/base_screen.dart';
+import 'package:ecommerce_app/screens/cart/cart_screen.dart';
 import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:ecommerce_app/screens/product/product_screen.dart';
 import 'package:ecommerce_app/screens/singup/sing_up.dart';
@@ -30,7 +32,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProductManager(),
           lazy: false,
-        )
+        ),
+        ChangeNotifierProxyProvider<UserManager, CartManager>(
+          create: (_) => CartManager(),
+          lazy: false,
+          update: (_, userManager, cartManager) =>
+              cartManager!..updateUser(userManager),
+        ),
       ],
       child: MaterialApp(
         title: 'Prazeres de Vênus',
@@ -54,6 +62,10 @@ class MyApp extends StatelessWidget {
             case '/login':
               return MaterialPageRoute(
                 builder: (_) => LoginScreen()
+              );
+            case '/cart':
+              return MaterialPageRoute(
+                builder: (_) => CartScreen()
               );
             case '/product':
               return MaterialPageRoute(

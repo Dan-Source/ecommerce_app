@@ -39,7 +39,7 @@ class Product extends ChangeNotifier {
     sizes = List<dynamic>.from(document.get('sizes') as List<dynamic>)
         .map((s) => ItemSize.fromMap(s as Map<String, dynamic>))
         .toList();
-    // deleted = (document.get('deleted') ?? false) as bool;
+    deleted = document.get('deleted') as bool;
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -85,15 +85,14 @@ class Product extends ChangeNotifier {
   }
 
   bool get hasStock {
-    // return totalStock > 0 && deleted!;
-    return totalStock > 0;
+    return totalStock > 0 && deleted == false;
   }
 
   ItemSize? findSize(String name) {
     try {
       return sizes!.firstWhere((s) => s.name == name);
     } catch (e) {
-      return null;
+      return ItemSize(name: '', price: 0, stock: 0);
     }
   }
 
