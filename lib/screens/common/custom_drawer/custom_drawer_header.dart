@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/models/home/page_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

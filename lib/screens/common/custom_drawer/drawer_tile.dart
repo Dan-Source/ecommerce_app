@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/models/home/page_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/home/page_manager.dart';
 import 'package:provider/provider.dart';
 
 class DrawerTile extends StatelessWidget {
@@ -7,7 +7,11 @@ class DrawerTile extends StatelessWidget {
   final String title;
   final int page;
 
-  const DrawerTile({this.iconData, this.title, this.page});
+  const DrawerTile({
+    required this.iconData,
+    required this.title,
+    required this.page
+  });
 
   @override
   Widget build(BuildContext context) {

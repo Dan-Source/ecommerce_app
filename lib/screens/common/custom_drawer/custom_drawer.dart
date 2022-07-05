@@ -1,7 +1,7 @@
+import 'package:ecommerce_app/models/user/user_manager.dart';
+import 'package:ecommerce_app/screens/common/custom_drawer/custom_drawer_header.dart';
+import 'package:ecommerce_app/screens/common/custom_drawer/drawer_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/user/user_manager.dart';
-import 'package:lojavirtual/ui/common/custom_drawer/custom_drawer_header.dart';
-import 'package:lojavirtual/ui/common/custom_drawer/drawer_tile.dart';
 import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -45,14 +45,14 @@ class CustomDrawer extends StatelessWidget {
                 builder: (_, userManager, __) {
                   if (userManager.adminEnabled) {
                     return Column(
-                      children: [
-                        const Divider(),
-                        const DrawerTile(
+                      children: const [
+                        Divider(),
+                        DrawerTile(
                           iconData: Icons.settings,
                           title: "Usuários",
                           page: 4,
                         ),
-                        const DrawerTile(
+                        DrawerTile(
                           iconData: Icons.settings,
                           title: "Pedidos",
                           page: 5,
