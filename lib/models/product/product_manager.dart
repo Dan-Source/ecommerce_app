@@ -34,7 +34,6 @@ class ProductManager extends ChangeNotifier {
     return filteredProducts;
   }
 
-
   Future<void> _loadAllProducts() async {
     try {
       final QuerySnapshot snapProducts = await firestore
@@ -48,6 +47,14 @@ class ProductManager extends ChangeNotifier {
       notifyListeners();
     } on Exception catch (e) {
       // TODO
+    }
+  }
+
+  Product? findProductById(String id) {
+    try {
+      return allProducts.firstWhere((p) => p.id == id);
+    } catch (e) {
+      return null;
     }
   }
 

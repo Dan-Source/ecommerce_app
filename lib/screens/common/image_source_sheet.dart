@@ -7,39 +7,33 @@ import 'package:image_picker/image_picker.dart';
 
 class ImageSourceSheet extends StatelessWidget {
   final Function(File) onImageSelected;
-
-  ImageSourceSheet({this.onImageSelected});
-
   final ImagePicker picker = ImagePicker();
+
+  ImageSourceSheet({required this.onImageSelected});
+  Future<void> editImage(String path, BuildContext context) async {
+      final CroppedFile? croppedFile = await ImageCropper().cropImage(
+          sourcePath: path,
+          aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+            );
+
+      if (croppedFile != null) {
+        onImageSelected(croppedFile as File);
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> editImage(String path) async {
-      final File croppedFile = await ImageCropper.cropImage(
-          sourcePath: path,
-          androidUiSettings: AndroidUiSettings(
-              toolbarTitle: 'Editar Imagem',
-              toolbarWidgetColor: Colors.white,
-              toolbarColor: Theme.of(context).primaryColor),
-          iosUiSettings: const IOSUiSettings(
-              title: 'Editar Imagem',
-              cancelButtonTitle: 'Cancelar',
-              doneButtonTitle: 'Concluir'));
 
-      if (croppedFile != null) {
-        onImageSelected(croppedFile);
-      }
-    }
 
     Future<void> getImageByCamera() async {
-      final PickedFile file = await picker.getImage(source: ImageSource.camera);
-      if (file != null) editImage(file.path);
+      final PickedFile? file = await picker.pickImage(source: ImageSource.camera) as PickedFile?;
+      if (file != null) editImage(file.path, context);
     }
 
     Future<void> getImageByGallery() async {
-      final PickedFile file =
-          await picker.getImage(source: ImageSource.gallery);
-      if (file != null) editImage(file.path);
+      final PickedFile? file =
+          await picker.pickImage(source: ImageSource.gallery) as PickedFile?;
+      if (file != null) editImage(file.path, context);
     }
 
     if (Platform.isAndroid) {
@@ -49,13 +43,11 @@ class ImageSourceSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FlatButton(
-              padding: const EdgeInsets.all(12),
+            TextButton(
               onPressed: getImageByCamera,
               child: const Text('Câmera'),
             ),
-            FlatButton(
-              padding: const EdgeInsets.all(12),
+            TextButton(
               onPressed: getImageByGallery,
               child: const Text('Galeria'),
             )

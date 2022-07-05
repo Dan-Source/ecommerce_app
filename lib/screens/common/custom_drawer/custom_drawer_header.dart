@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/models/home/page_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class CustomDrawerHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const Text(
-              'Loja do\nJúlio Nery',
+              'Prazeres de Vênus',
               style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
             ),
             Text(

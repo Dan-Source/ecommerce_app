@@ -2,6 +2,7 @@ import 'package:ecommerce_app/common/custom_drawer/costom_drawer.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:ecommerce_app/screens/products/products_screen.dart';
+import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce_app/models/home/page_manager.dart';
@@ -23,7 +24,7 @@ class _BaseScreenState extends State<BaseScreen> {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              // HomeScreen(),
+              HomeScreen(),
               ProductsScreen(),
               // OrdersScreen(),
               // StoresScreen(),
