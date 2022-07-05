@@ -155,12 +155,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       content: Text('Falha ao cadastrar: $e'),
                                       backgroundColor: const Color.fromARGB(255, 250, 110, 100),
-                                    ));
+                                    ),);
                                     },
                                     onSuccess: () {
                                       Navigator.of(context).pop();
                                       // Navigator.of(context).pop();
-                                  });
+                                  },);
                               }
                             },
                       style: ElevatedButton.styleFrom(
