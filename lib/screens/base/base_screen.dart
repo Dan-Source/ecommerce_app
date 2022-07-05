@@ -23,7 +23,7 @@ class _BaseScreenState extends State<BaseScreen> {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              // HomeScreen(),
+              HomeScreen(),
               ProductsScreen(),
               // OrdersScreen(),
               // StoresScreen(),
