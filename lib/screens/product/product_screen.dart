@@ -27,10 +27,12 @@ class ProductScreen extends StatelessWidget {
                 if (userManager.adminEnabled && (product.deleted == false)) {
                   return IconButton(
                     icon: const Icon(Icons.edit),
+                    color: primaryColor,
                     onPressed: () {
                       Navigator.of(context).pushReplacementNamed(
                           '/edit_product',
-                          arguments: product);
+                          arguments: product,
+                      );
                     },
                   );
                 } else {
@@ -53,7 +55,7 @@ class ProductScreen extends StatelessWidget {
                       ))
                   .toList(),
                   options: CarouselOptions(
-                      autoPlay: true,
+                      autoPlay: false,
                       aspectRatio: 2.0,
                       enlargeCenterPage: true,
                     ),

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/models/admin/admin_users_manager.dart';
 import 'package:ecommerce_app/models/cart/cart_manager.dart';
 import 'package:ecommerce_app/models/home/home_manager.dart';
 import 'package:ecommerce_app/models/product/product.dart';
@@ -44,6 +45,12 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) =>
               cartManager!..updateUser(userManager),
         ),
+        ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
+          create: (_) => AdminUsersManager(),
+          lazy: false,
+          update: (_, userManager, adminUsersManager) =>
+              adminUsersManager!..updateUser(userManager),
+        )
       ],
       child: MaterialApp(
         title: 'Prazeres de Vênus',

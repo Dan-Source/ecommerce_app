@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:ecommerce_app/models/product/product_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
-import 'package:ecommerce_app/common/custom_drawer/costom_drawer.dart';
+import 'package:ecommerce_app/screens/common/custom_drawer/custom_drawer.dart';
 import 'package:ecommerce_app/screens/products/components/product_list_tile.dart';
 import 'package:ecommerce_app/screens/products/components/search_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductsScreen extends StatelessWidget {

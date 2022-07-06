@@ -1,5 +1,6 @@
-import 'package:ecommerce_app/common/custom_drawer/costom_drawer.dart';
+import 'package:ecommerce_app/screens/common/custom_drawer/custom_drawer.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
+import 'package:ecommerce_app/screens/admin_users/admin_users_screen.dart';
 import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:ecommerce_app/screens/products/products_screen.dart';
 import 'package:ecommerce_app/screens/home/home_screen.dart';
@@ -28,10 +29,10 @@ class _BaseScreenState extends State<BaseScreen> {
               ProductsScreen(),
               // OrdersScreen(),
               // StoresScreen(),
-              // if (userManager.adminEnabled) ...[
-              //   AdminUsersScreen(),
+              if (userManager.adminEnabled) ...[
+                AdminUsersScreen(),
               //   AdminOrdersScreen()
-              // ]
+              ]
             ],
           );
         },
