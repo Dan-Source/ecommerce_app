@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 class HomeManager extends ChangeNotifier {
   HomeManager() {
     _loadSections();
-    print('loading...Home Manager');
   }
 
   final List<Section> _sections = [];

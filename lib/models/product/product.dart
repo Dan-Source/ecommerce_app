@@ -22,12 +22,12 @@ class Product extends ChangeNotifier {
       sizes = sizes ?? [];
     }
 
-  String? id;
+  String? id = '';
   String? name = '';
   String? description =  '';
-  List<String>? images;
-  List<ItemSize>? sizes;
-  bool? deleted;
+  List<String>? images = [];
+  List<ItemSize>? sizes = [];
+  bool? deleted = false;
 
 
   Product.fromDocument(DocumentSnapshot document) {
@@ -125,23 +125,29 @@ class Product extends ChangeNotifier {
       } else {
         final UploadTask task =
             storageRef.child(Uuid().v1()).putFile(newImage as File);
-        final TaskSnapshot snapshot = await task;
-        final String url = await snapshot.ref.getDownloadURL();
-        updateImages.add(url);
+        task.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
+          if (taskSnapshot.state == TaskState.running) {
+          } else if (taskSnapshot.state == TaskState.success) {
+            //Recuperar url da imagem:
+            String url = await taskSnapshot.ref.getDownloadURL();
+            updateImages.add(url);
+          }
+        });
+
       }
     }
 
-    for (final image in images!) {
-      if (!newImages!.contains(image) && image.contains('firebase')) {
+    for (final image in List.from(images!)) {
+      if (!newImages!.contains(image) && image.contains('firebase') as bool) {
         try {
-          final ref = await storage.ref(image).getDownloadURL();
-          //await ref.delete();
+          final ref = storage.refFromURL(image as String);
+          await ref.delete();
           // ignore: empty_catches
         } catch (e) {}
       }
     }
 
-    await firestoreRef.set({'images': updateImages});
+    await firestoreRef.update({'images': updateImages});
     images = updateImages;
 
     loading = false;

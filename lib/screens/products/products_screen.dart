@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/models/product/product.dart';
 import 'package:ecommerce_app/models/product/product_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/common/custom_drawer/custom_drawer.dart';
@@ -64,6 +65,7 @@ class ProductsScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushNamed(
                       '/edit_product',
+                      arguments: Product(),
                     );
                   },
                 );

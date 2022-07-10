@@ -11,28 +11,28 @@ class ImageSourceSheet extends StatelessWidget {
 
   ImageSourceSheet({required this.onImageSelected});
   Future<void> editImage(String path, BuildContext context) async {
-      final CroppedFile? croppedFile = await ImageCropper().cropImage(
-          sourcePath: path,
-          aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-            );
-
+      final CroppedFile? croppedFile = await ImageCropper.platform.cropImage(
+        sourcePath: path,
+        compressQuality: 100,
+        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      );
       if (croppedFile != null) {
-        onImageSelected(croppedFile as File);
-      }
+        final File file = File(croppedFile.path);
+        onImageSelected(file);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
 
-
     Future<void> getImageByCamera() async {
-      final PickedFile? file = await picker.pickImage(source: ImageSource.camera) as PickedFile?;
+      final XFile? file = await picker.pickImage(source: ImageSource.camera);
       if (file != null) editImage(file.path, context);
     }
 
     Future<void> getImageByGallery() async {
-      final PickedFile? file =
-          await picker.pickImage(source: ImageSource.gallery) as PickedFile?;
+      final XFile? file =
+          await picker.pickImage(source: ImageSource.gallery);
       if (file != null) editImage(file.path, context);
     }
 

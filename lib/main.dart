@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'package:ecommerce_app/models/admin/admin_users_manager.dart';
 import 'package:ecommerce_app/models/cart/cart_manager.dart';
 import 'package:ecommerce_app/models/home/home_manager.dart';
@@ -6,10 +7,10 @@ import 'package:ecommerce_app/models/product/product_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/base/base_screen.dart';
 import 'package:ecommerce_app/screens/cart/cart_screen.dart';
+import 'package:ecommerce_app/screens/edit_product/edit_product_screen.dart';
 import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:ecommerce_app/screens/product/product_screen.dart';
 import 'package:ecommerce_app/screens/singup/sing_up.dart';
-import 'package:ecommerce_app/screens/products/products_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -82,6 +83,11 @@ class MyApp extends StatelessWidget {
             case '/product':
               return MaterialPageRoute(
                 builder: (_) => ProductScreen(settings.arguments as Product),
+              );
+            case '/edit_product':
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      EditProductScreen(settings.arguments as Product),
               );
             case '/':
             default:
