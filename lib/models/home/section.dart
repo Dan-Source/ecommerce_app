@@ -26,7 +26,7 @@ class Section extends ChangeNotifier {
     id = document.id;
     name = document['name'] as String;
     type = document['type'] as String;
-    items = (document['items'] as List)
+    items = (document['items'] as List<dynamic>)
         .map((i) => SectionItem.fromMap(i as Map<String, dynamic>))
         .toList();
   }
@@ -67,6 +67,9 @@ class Section extends ChangeNotifier {
       await firestoreRef.update(data);
     }
 
+    int count = 0;
+    bool updated = false;
+
     for (final item in items) {
       if (item.image is File) {
         final Reference file = storageRef.child(Uuid().v1());
@@ -76,8 +79,23 @@ class Section extends ChangeNotifier {
             print('Uploading...');
           } else if (snapshot.state == TaskState.success) {
             print('Uploaded');
-            final String url = await file.getDownloadURL();
+            final String url = await snapshot.ref.getDownloadURL();
+            count++;
             item.image = url;
+
+            if(count == items.length){
+              try {
+                final Map<String, dynamic> itemsData = {
+                  'items': items.map((e) => e.toMap()).toList()
+                };
+              await firestore.doc('home/$id').update(itemsData);
+              print('Fez o upload!');
+              } catch (e) {
+                debugPrint('Error no upload de imagem do seções!');
+              }
+            }
+          } else {
+            count++;
           }
         });
       }

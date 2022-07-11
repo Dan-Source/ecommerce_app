@@ -119,9 +119,12 @@ class Product extends ChangeNotifier {
 
     final List<String> updateImages = [];
 
+    int count_images = 0;
+
     for (final newImage in newImages!) {
       if (images!.contains(newImage)) {
         updateImages.add(newImage as String);
+        count_images++;
       } else {
         final UploadTask task =
             storageRef.child(Uuid().v1()).putFile(newImage as File);
@@ -131,6 +134,15 @@ class Product extends ChangeNotifier {
             //Recuperar url da imagem:
             String url = await taskSnapshot.ref.getDownloadURL();
             updateImages.add(url);
+            count_images++;
+            if(count_images == newImages!.length) {
+              print('Ta salvando essa porra!');
+              await firestore.doc('products/$id').update({'images': updateImages}).then((value) {
+                this.images = updateImages;
+                notifyListeners();
+                loading = false;
+              });
+            }
           }
         });
 
@@ -138,12 +150,14 @@ class Product extends ChangeNotifier {
     }
 
     for (final image in List.from(images!)) {
-      if (!newImages!.contains(image) && image.contains('firebase') as bool) {
+      if (newImages!.contains(image)) {
         try {
           final ref = storage.refFromURL(image as String);
           await ref.delete();
           // ignore: empty_catches
-        } catch (e) {}
+        } catch (e) {
+          debugPrint('Falha ao deletar imagem');
+        }
       }
     }
 
