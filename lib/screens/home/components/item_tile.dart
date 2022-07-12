@@ -34,18 +34,23 @@ class ItemTile extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (_) {
-                    final product = context
-                        .read<ProductManager>()
-                        .findProductById(item.product!);
+                    final product;
+                    if(item.product != null){
+                      product = context
+                          .read<ProductManager>()
+                          .findProductById(item.product!);
+                    } else {
+                      product = null;
+                    }
                     return AlertDialog(
                       title: const Text('Editar Item'),
                       content: product != null
                           ? ListTile(
                               contentPadding: EdgeInsets.zero,
-                              leading: Image.network(product.images!.first),
-                              title: Text(product.name!),
+                              leading: Image.network(product.images.first as String),
+                              title: Text(product.name! as String),
                               subtitle: Text(
-                                  'R\$ ${product.basePrice.toStringAsFixed(2)}'),
+                                  'R\$ ${product.basePrice.toStringAsFixed(2)}',),
                             )
                           : null,
                       actions: [

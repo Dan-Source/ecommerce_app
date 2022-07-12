@@ -54,8 +54,9 @@ class ProductManager extends ChangeNotifier {
     try {
       return allProducts.firstWhere((p) => p.id == id);
     } catch (e) {
-      return null;
+      debugPrint("Error ao pegar produto por id!");
     }
+    return null;
   }
 
   void update(Product product) {
