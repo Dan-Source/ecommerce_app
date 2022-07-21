@@ -1,12 +1,14 @@
 class SectionItem {
   dynamic image;
-  String? product;
+  String? product = 'sem produtos';
 
   SectionItem({required this.image, this.product});
 
   SectionItem.fromMap(Map<String, dynamic> map) {
     image = map['image'] as String;
-    product = map['product'] as String;
+    if (map['product'] != null){
+      product = map['product'] as String;
+    }
   }
 
   Map<String, dynamic> toMap() {

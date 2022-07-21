@@ -89,7 +89,7 @@ class Section extends ChangeNotifier {
                   'items': items.map((e) => e.toMap()).toList()
                 };
               await firestore.doc('home/$id').update(itemsData);
-              print('Fez o upload!');
+                print('Fez o upload!');
               } catch (e) {
                 debugPrint('Error no upload de imagem do seções!');
               }

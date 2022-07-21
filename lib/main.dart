@@ -8,7 +8,6 @@ import 'package:ecommerce_app/models/user/user_manager.dart';
 import 'package:ecommerce_app/screens/address/address_screen.dart';
 import 'package:ecommerce_app/screens/base/base_screen.dart';
 import 'package:ecommerce_app/screens/cart/cart_screen.dart';
-import 'package:ecommerce_app/screens/checkout/checkout_screen.dart';
 import 'package:ecommerce_app/screens/edit_product/edit_product_screen.dart';
 import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:ecommerce_app/screens/product/product_screen.dart';
@@ -59,8 +58,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Prazeres de Vênus',
         theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 4, 125, 141),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+          primaryColor: Color.fromARGB(255, 255, 36, 36),
+          scaffoldBackgroundColor: Color.fromARGB(255, 244, 174, 192),
           appBarTheme: const AppBarTheme(
             color: Colors.transparent,
             elevation: 0,
@@ -85,8 +84,6 @@ class MyApp extends StatelessWidget {
               );
             case '/address':
               return MaterialPageRoute(builder: (_) => AddressScreen());
-            case '/checkout':
-              return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/product':
               return MaterialPageRoute(
                 builder: (_) => ProductScreen(settings.arguments as Product),

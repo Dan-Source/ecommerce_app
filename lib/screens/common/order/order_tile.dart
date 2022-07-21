@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/models/order/order.dart';
 import 'package:ecommerce_app/screens/common/order/cancel_order_dialog.dart';
-import 'package:ecommerce_app/screens/common/order/export_address_dialog.dart';
 import 'package:ecommerce_app/screens/common/order/order_product_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -81,9 +80,6 @@ class OrderTile extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => ExportAddressDialog(order.address!));
                     },
                     style:ElevatedButton.styleFrom(
                       primary: primaryColor,
