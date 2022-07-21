@@ -117,13 +117,14 @@ class CartManager extends ChangeNotifier {
 
   bool get isCartValid {
     for (final cartProduct in items) {
+      print('passou aqui!');
       if (!cartProduct.hasStock) return false;
     }
     return true;
   }
 
-  bool get isAddressValid => address != null && deliveryPrice != null;
-
+  // bool get isAddressValid => address != null && deliveryPrice != null;
+  bool get isAddressValid => true;
   // ADDRESS
 
   Future<void> getAddress(String cep) async {
@@ -192,4 +193,5 @@ class CartManager extends ChangeNotifier {
 
     return true;
   }
+  
 }

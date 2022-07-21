@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/models/cepaberto_address.dart';
 
@@ -15,15 +15,13 @@ class CepAbertoService {
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Token token=$token';
 
     try {
-      final response = await dio.get<Map<String, dynamic>>(endpoint);
-
-      if (response.data!.isEmpty) {
+      final response = await dio.get(endpoint);
+      if (response.data == {}) {
         return Future.error('CEP Inválido');
       }
-
-      final CepAbertoAddress address = CepAbertoAddress.fromMap(response.data!);
-
+      final CepAbertoAddress address = CepAbertoAddress.fromMap(response);
       return address;
+
     } on DioError catch (e) {
       return Future.error('Erro ao buscar CEP');
     }

@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/models/cart/cart_product.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/cart/cart_product.dart';
 
 class OrderProductTile extends StatelessWidget {
   const OrderProductTile(this.cartProduct);
@@ -21,7 +21,7 @@ class OrderProductTile extends StatelessWidget {
             SizedBox(
               height: 60,
               width: 60,
-              child: Image.network(cartProduct.product.images.first),
+              child: Image.network(cartProduct.product!.images!.first),
             ),
             const SizedBox(
               width: 8,
@@ -31,7 +31,7 @@ class OrderProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cartProduct.product.name,
+                    cartProduct.product!.name!,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 17.0,

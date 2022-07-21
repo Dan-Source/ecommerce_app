@@ -49,6 +49,14 @@ dependencies:
   alphabet_list_scroll_view: ^2.0.0
   # carousel_pro: ^1.0.0
   carousel_pro_nullsafety: ^1.0.2
+  brasil_fields: ^1.4.5
+  screenshot: ^1.2.3
+  gallery_saver: ^2.3.2
+  credit_card_type_detector: ^2.0.0
+  cpf_cnpj_validator: ^2.0.0
+  flip_card: ^0.6.0
+  keyboard_actions: ^4.0.1
+  mask_text_input_formatter: ^2.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

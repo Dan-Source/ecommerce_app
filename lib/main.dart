@@ -5,8 +5,10 @@ import 'package:ecommerce_app/models/home/home_manager.dart';
 import 'package:ecommerce_app/models/product/product.dart';
 import 'package:ecommerce_app/models/product/product_manager.dart';
 import 'package:ecommerce_app/models/user/user_manager.dart';
+import 'package:ecommerce_app/screens/address/address_screen.dart';
 import 'package:ecommerce_app/screens/base/base_screen.dart';
 import 'package:ecommerce_app/screens/cart/cart_screen.dart';
+import 'package:ecommerce_app/screens/checkout/checkout_screen.dart';
 import 'package:ecommerce_app/screens/edit_product/edit_product_screen.dart';
 import 'package:ecommerce_app/screens/login/login_screen.dart';
 import 'package:ecommerce_app/screens/product/product_screen.dart';
@@ -81,6 +83,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => CartScreen()
               );
+            case '/address':
+              return MaterialPageRoute(builder: (_) => AddressScreen());
+            case '/checkout':
+              return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/product':
               return MaterialPageRoute(
                 builder: (_) => ProductScreen(settings.arguments as Product),

@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/models/order/order.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/order/order.dart';
 
 class CancelOrderDialog extends StatefulWidget {
   final Order order;
@@ -12,7 +12,7 @@ class CancelOrderDialog extends StatefulWidget {
 
 class _CancelOrderDialogState extends State<CancelOrderDialog> {
   bool loading = false;
-  String error;
+  String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +31,14 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  error,
+                  error ?? '',
                   style: const TextStyle(color: Colors.red),
                 ),
               )
           ],
         ),
         actions: [
-          FlatButton(
+          ElevatedButton(
             onPressed: !loading
                 ? () {
                     Navigator.of(context).pop();
@@ -46,7 +46,7 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> {
                 : null,
             child: const Text('Voltar'),
           ),
-          FlatButton(
+          ElevatedButton(
             onPressed: !loading
                 ? () async {
                     setState(() {
@@ -62,8 +62,10 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> {
                       });
                     }
                   }
-                : null,
-            textColor: Colors.red,
+                : () {},
+            style:ElevatedButton.styleFrom(
+              primary: Colors.red,
+            ),
             child: const Text('Cancelar Pedido'),
           )
         ],
