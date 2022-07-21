@@ -15,6 +15,7 @@ class User {
   String? password;
   String? name;
   String? confirmPassword;
+  String? cpf;
   bool admin = false;
   Address? address;
 
@@ -53,6 +54,11 @@ class User {
 
   void setAddress(Address address) {
     this.address = address;
+    saveData();
+  }
+
+  void setCpf(String? cpf) {
+    this.cpf = cpf;
     saveData();
   }
 

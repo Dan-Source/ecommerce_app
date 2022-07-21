@@ -26,8 +26,6 @@ class CartScreen extends StatelessWidget {
               title: 'Nenhum produto no carrinho!',
             );
           }
-
-          print(cartManager.isAddressValid);
           return ListView(
             children: <Widget>[
               Column(
@@ -37,11 +35,13 @@ class CartScreen extends StatelessWidget {
               ),
               PriceCard(
                 buttonText: 'Continuar para Entrega',
-                onPressed: !cartManager.isCartValid
+                onPressed: cartManager.isCartValid
                     ? () {
                         Navigator.of(context).pushNamed('/address');
                       }
-                    : () {},
+                    : () {
+                        debugPrint('passou aqui!');
+                    },
               ),
             ],
           );

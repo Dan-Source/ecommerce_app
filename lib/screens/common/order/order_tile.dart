@@ -1,8 +1,7 @@
+import 'package:ecommerce_app/models/order/order.dart';
+import 'package:ecommerce_app/screens/common/order/cancel_order_dialog.dart';
+import 'package:ecommerce_app/screens/common/order/order_product_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/order/order.dart';
-import 'package:lojavirtual/ui/common/order/cancel_order_dialog.dart';
-import 'package:lojavirtual/ui/common/order/export_address_dialog.dart';
-import 'package:lojavirtual/ui/common/order/order_product_tile.dart';
 
 class OrderTile extends StatelessWidget {
   final Order order;
@@ -28,7 +27,7 @@ class OrderTile extends StatelessWidget {
                       fontWeight: FontWeight.w600, color: primaryColor),
                 ),
                 Text(
-                  'R\$ ${order.price.toStringAsFixed(2)}',
+                  'R\$ ${order.price!.toStringAsFixed(2)}',
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -49,7 +48,7 @@ class OrderTile extends StatelessWidget {
         ),
         children: [
           Column(
-            children: order.items.map((e) {
+            children: order.items!.map((e) {
               return OrderProductTile(e);
             }).toList(),
           ),
@@ -59,31 +58,32 @@ class OrderTile extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
                           barrierDismissible: false,
                           builder: (_) => CancelOrderDialog(order));
                     },
-                    textColor: Colors.red,
+                    style:ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                    ),
                     child: const Text('Cancelar'),
                   ),
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: order.back,
                     child: const Text('Recuar'),
                   ),
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: order.advance,
                     child: const Text('Avançar'),
                   ),
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => ExportAddressDialog(order.address));
                     },
-                    textColor: primaryColor,
+                    style:ElevatedButton.styleFrom(
+                      primary: primaryColor,
+                    ),
                     child: const Text('Endereço'),
                   )
                 ],
